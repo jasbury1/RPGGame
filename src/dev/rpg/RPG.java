@@ -5,7 +5,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import dev.rpg.display.Display;
+import dev.rpg.gfx.Assets;
 import dev.rpg.gfx.ImageLoader;
+import dev.rpg.gfx.SpriteSheet;
 
 public class RPG implements Runnable{
 	
@@ -18,9 +20,7 @@ public class RPG implements Runnable{
 	
 	private BufferStrategy bs;
 	private Graphics graphicsObject;
-	
-	private BufferedImage testImage;
-	
+
 	public RPG(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -30,12 +30,15 @@ public class RPG implements Runnable{
 	//Called by the run function
 	private void init() {
 		display = new Display(title, width, height);
-		testImage = ImageLoader.loadImage("/textures/boat.png");
+		Assets.init();
+		
 	}
+	
+	int x = 0;
 	
 	//Called by our runtime loop (run function)
 	private void update() {
-		
+		x += 1;
 	}
 	
 	//Called by our runtime loop (run function)
@@ -51,7 +54,7 @@ public class RPG implements Runnable{
 		graphicsObject.clearRect(0, 0, width, height);
 		
 		//Drawing to the screen:
-		graphicsObject.drawImage(testImage,  20,  20,  null);
+		graphicsObject.drawImage(Assets.face1, x, 10, null);
 		
 		//End of Drawing
 		bs.show();
