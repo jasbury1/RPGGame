@@ -2,10 +2,12 @@ package dev.rpg.states;
 
 import java.awt.Graphics;
 
+import dev.rpg.RPG;
+
 public class SettingsState extends State {
 	
-	public SettingsState() {
-		
+	public SettingsState(RPG rpg) {
+		super(rpg);
 	}
 
 	@Override

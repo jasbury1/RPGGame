@@ -2,10 +2,12 @@ package dev.rpg.states;
 
 import java.awt.Graphics;
 
+import dev.rpg.RPG;
+
 public class MenuState extends State{
 	
-	public MenuState() {
-		
+	public MenuState(RPG rpg) {
+		super(rpg);
 	}
 
 	@Override
