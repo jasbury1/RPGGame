@@ -64,10 +64,41 @@ public class RPG implements Runnable{
 	public void run() {
 		init();
 		
+		//amount of times to call rendering per second
+		int fps = 60;
+		
+		//1 billion nanoseconds per second
+		//calculate maximum maximum amount of times to run tick/render methods
+		double timePerTick = 1_000_000_000 / fps;
+		double delta = 0; //amount of time until calling render method
+		long now; // Current time of our computer
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
+		
 		while(running) {
-			update();
-			render();
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			timer += now - lastTime;
+			lastTime = now;
+			
+			if(delta >= 1) {
+				//Time to tick and render
+				update();
+				render();
+				ticks++;
+				delta--;
+			}
+			
+			//optional if for testing
+			if(timer >= 1_000_000_000) {
+				System.out.println("Ticks and Frames: " + ticks);
+				ticks = 0;
+				timer = 0;
+			}
 		}
+		
+		stop();
 		
 	}
 	
