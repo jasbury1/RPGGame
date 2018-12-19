@@ -8,6 +8,8 @@ import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
 import dev.rpg.gfx.ImageLoader;
 import dev.rpg.gfx.SpriteSheet;
+import dev.rpg.states.GameState;
+import dev.rpg.states.State;
 
 public class RPG implements Runnable{
 	
@@ -20,6 +22,9 @@ public class RPG implements Runnable{
 	
 	private BufferStrategy bs;
 	private Graphics graphicsObject;
+	
+	//States
+	private State gameState;
 
 	public RPG(String title, int width, int height) {
 		this.width = width;
@@ -32,13 +37,16 @@ public class RPG implements Runnable{
 		display = new Display(title, width, height);
 		Assets.init();
 		
+		gameState = new GameState();
+		State.setState(gameState);
+		
 	}
-	
-	int x = 0;
-	
+		
 	//Called by our runtime loop (run function)
 	private void update() {
-		x += 1;
+		if(State.getState() != null) {
+			State.getState().update();
+		}
 	}
 	
 	//Called by our runtime loop (run function)
@@ -54,7 +62,10 @@ public class RPG implements Runnable{
 		graphicsObject.clearRect(0, 0, width, height);
 		
 		//Drawing to the screen:
-		graphicsObject.drawImage(Assets.face1, x, 10, null);
+		
+		if(State.getState() != null) {
+			State.getState().render(graphicsObject);
+		}
 		
 		//End of Drawing
 		bs.show();
@@ -91,6 +102,7 @@ public class RPG implements Runnable{
 			}
 			
 			//optional if for testing
+			//Should not deviate from 60 +/- 1
 			if(timer >= 1_000_000_000) {
 				System.out.println("Ticks and Frames: " + ticks);
 				ticks = 0;
@@ -99,7 +111,6 @@ public class RPG implements Runnable{
 		}
 		
 		stop();
-		
 	}
 	
 	public synchronized void start() {
