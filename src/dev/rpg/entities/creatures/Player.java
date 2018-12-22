@@ -8,6 +8,7 @@ import dev.rpg.gfx.Assets;
 public class Player extends Creature{
 
 	private RPG rpg;
+	private static final int MOVE_DELTA = 3;
 	
 	public Player(RPG rpg, float x, float y) {
 		super(x, y);
@@ -17,19 +18,34 @@ public class Player extends Creature{
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		if(rpg.getKeyManager().up) {
-			y -= 3;
+		if(rpg.getInputManager().up) {
+			y -= MOVE_DELTA;
 		}
-		if(rpg.getKeyManager().down) {
-			y += 3;
+		if(rpg.getInputManager().down) {
+			y += MOVE_DELTA;
 		}
-		if(rpg.getKeyManager().left) {
-			x -= 3;
+		if(rpg.getInputManager().left) {
+			x -= MOVE_DELTA;
 		}
-		if(rpg.getKeyManager().right) {
-			x += 3;
+		if(rpg.getInputManager().right) {
+			x += MOVE_DELTA;
 		}
+	}
+	
+	public void moveUp() {
+		y -= MOVE_DELTA;
+	}
+	
+	public void moveDown() {
+		y += MOVE_DELTA;
+	}
+	
+	public void moveLeft() {
+		x -= MOVE_DELTA;
+	}
+	
+	public void moveRight() {
+		x += MOVE_DELTA;
 	}
 
 	@Override

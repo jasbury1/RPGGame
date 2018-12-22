@@ -26,5 +26,9 @@ public class GameState extends State {
 		g.drawImage(Assets.face2, 0, 0, null);
 		player.render(g);
 	}
+	
+	public Player getPlayer() {
+		return player;
+	}
 
 }

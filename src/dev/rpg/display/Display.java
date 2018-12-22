@@ -8,6 +8,7 @@ public class Display {
 	
 	private JFrame frame;
 	private Canvas canvas;
+	private DisplayComponent component;
 	
 	private String title;
 	private int width, height;
@@ -27,6 +28,7 @@ public class Display {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.setFocusable(true);
 		
 		canvas = new Canvas();
 		canvas.setPreferredSize(new Dimension(width, height));
@@ -34,9 +36,12 @@ public class Display {
 		canvas.setMinimumSize(new Dimension(width, height));
 		//IMPORTANT: JFrame is the only thing that will have focus
 		canvas.setFocusable(false);
-		
 		frame.add(canvas);
 		frame.pack();
+		
+		component = new DisplayComponent();
+		frame.add(component);
+
 	}
 	
 	public Canvas getCanvas() {
@@ -45,6 +50,10 @@ public class Display {
 	
 	public JFrame getFrame() {
 		return frame;
+	}
+	
+	public DisplayComponent getComponent() {
+		return component;
 	}
 
 }

@@ -8,6 +8,8 @@ import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
 import dev.rpg.gfx.ImageLoader;
 import dev.rpg.gfx.SpriteSheet;
+import dev.rpg.input.InputManager;
+import dev.rpg.input.KeyBinder;
 import dev.rpg.input.KeyManager;
 import dev.rpg.states.GameState;
 import dev.rpg.states.MenuState;
@@ -30,30 +32,31 @@ public class RPG implements Runnable{
 	private State menuState;
 	
 	//Input
-	private KeyManager keyManager;
+	private InputManager inputManager;
 
 	public RPG(String title, int width, int height) {
 		this.width = width;
 		this.height = height;
 		this.title = title;
-		keyManager = new KeyManager();
+		
 	}
 	
 	//Called by the run function
 	private void init() {
 		display = new Display(title, width, height);
-		display.getFrame().addKeyListener(keyManager);
+		inputManager = new InputManager(display);
+		display.getFrame().addKeyListener(inputManager.getKeyManager());
+		
 		Assets.init();
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(gameState);
-		
 	}
 		
 	//Called by our runtime loop (run function)
 	private void update() {
-		keyManager.update();
+		inputManager.update();
 		
 		if(State.getState() != null) {
 			State.getState().update();
@@ -124,8 +127,8 @@ public class RPG implements Runnable{
 		stop();
 	}
 	
-	public KeyManager getKeyManager() {
-		return keyManager;
+	public InputManager getInputManager() {
+		return inputManager;
 	}
 	
 	public synchronized void start() {
