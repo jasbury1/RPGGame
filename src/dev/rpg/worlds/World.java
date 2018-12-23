@@ -25,8 +25,14 @@ public class World {
 	}
 	
 	public void render(Graphics g) {
-		for(int y = 0; y < height; ++y) {
-			for(int x = 0; x < width; ++x) {
+		//Limit rendering to what the user can "see"
+		int xStart = (int)(Math.max(0, rpg.getGameViewer().getxOffset() / Tile.TILE_WIDTH));
+		int xEnd = (int)(Math.min(width, (rpg.getGameViewer().getxOffset() + rpg.getWidth()) / Tile.TILE_WIDTH + 1));
+		int yStart = (int)(Math.max(0, rpg.getGameViewer().getyOffset() / Tile.TILE_HEIGHT));
+		int yEnd = (int)(Math.min(height, (rpg.getGameViewer().getyOffset() + rpg.getHeight()) / Tile.TILE_HEIGHT + 1));
+		
+		for(int y = yStart; y < yEnd; ++y) {
+			for(int x = xStart; x < xEnd; ++x) {
 				getTile(x, y).render(g,  (int)(x * Tile.TILE_WIDTH - rpg.getGameViewer().getxOffset()),  
 						(int)(y * Tile.TILE_HEIGHT - rpg.getGameViewer().getyOffset()));
 			}
