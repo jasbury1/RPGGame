@@ -8,6 +8,7 @@ import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
 import dev.rpg.gfx.ImageLoader;
 import dev.rpg.gfx.SpriteSheet;
+import dev.rpg.gfx.Viewer;
 import dev.rpg.input.InputManager;
 import dev.rpg.input.KeyBinder;
 import dev.rpg.input.KeyManager;
@@ -18,7 +19,7 @@ import dev.rpg.states.State;
 public class RPG implements Runnable{
 	
 	private Display display;
-	public int width, height;
+	private int width, height;
 	public String title;
 	
 	private boolean running = false;
@@ -33,6 +34,9 @@ public class RPG implements Runnable{
 	
 	//Input
 	private InputManager inputManager;
+	
+	//View (Camera)
+	private Viewer gameViewer;
 
 	public RPG(String title, int width, int height) {
 		this.width = width;
@@ -48,6 +52,8 @@ public class RPG implements Runnable{
 		display.getFrame().addKeyListener(inputManager.getKeyManager());
 		
 		Assets.init();
+		
+		gameViewer = new Viewer(this, 0, 0);
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
@@ -127,10 +133,6 @@ public class RPG implements Runnable{
 		stop();
 	}
 	
-	public InputManager getInputManager() {
-		return inputManager;
-	}
-	
 	public synchronized void start() {
 		if(running) {
 			return;
@@ -152,6 +154,22 @@ public class RPG implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	//GETTERS AND SETTERS
+	public InputManager getInputManager() {
+		return inputManager;
+	}
+	
+	public Viewer getGameViewer() {
+		return gameViewer;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 	
 }

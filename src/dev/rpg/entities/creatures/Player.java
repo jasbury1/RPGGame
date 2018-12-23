@@ -7,28 +7,39 @@ import dev.rpg.gfx.Assets;
 
 public class Player extends Creature{
 
-	private RPG rpg;
 	private static final int MOVE_DELTA = 3;
 	
 	public Player(RPG rpg, float x, float y) {
-		super(x, y);
-		this.rpg = rpg;
-		// TODO Auto-generated constructor stub
+		super(rpg, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 	}
 
 	@Override
 	public void update() {
-		if(rpg.getInputManager().up) {
+		/*if(rpg.getInputManager().up) {
 			y -= MOVE_DELTA;
+		}*/
+		
+		getInput();
+		move();
+		rpg.getGameViewer().centerOnEntity(this);
+		
+	}
+	
+	private void getInput() {
+		xMove = 0;
+		yMove = 0;
+		
+		if(rpg.getInputManager().up) {
+			yMove = -speed;
 		}
 		if(rpg.getInputManager().down) {
-			y += MOVE_DELTA;
+			yMove = speed;
 		}
 		if(rpg.getInputManager().left) {
-			x -= MOVE_DELTA;
+			xMove = -speed;
 		}
 		if(rpg.getInputManager().right) {
-			x += MOVE_DELTA;
+			xMove = speed;
 		}
 	}
 	
@@ -50,7 +61,7 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.player, (int)x, (int)y, null);
+		g.drawImage(Assets.player, (int)(x - rpg.getGameViewer().getxOffset()), (int)(y - rpg.getGameViewer().getyOffset()), width, height, null);
 	}
 
 }
