@@ -37,6 +37,9 @@ public class RPG implements Runnable{
 	
 	//View (Camera)
 	private Viewer gameViewer;
+	
+	//Handler
+	Handler handler;
 
 	public RPG(String title, int width, int height) {
 		this.width = width;
@@ -54,9 +57,11 @@ public class RPG implements Runnable{
 		Assets.init();
 		
 		gameViewer = new Viewer(this, 0, 0);
+		handler = new Handler(this);
 		
-		gameState = new GameState(this);
-		menuState = new MenuState(this);
+		
+		gameState = new GameState(handler);
+		menuState = new MenuState(handler);
 		State.setState(gameState);
 	}
 		

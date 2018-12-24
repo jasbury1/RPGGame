@@ -2,6 +2,7 @@ package dev.rpg.entities.creatures;
 
 import java.awt.Graphics;
 
+import dev.rpg.Handler;
 import dev.rpg.RPG;
 import dev.rpg.gfx.Assets;
 
@@ -9,8 +10,8 @@ public class Player extends Creature{
 
 	private static final int MOVE_DELTA = 3;
 	
-	public Player(RPG rpg, float x, float y) {
-		super(rpg, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+	public Player(Handler handler, float x, float y) {
+		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 	}
 
 	@Override
@@ -21,7 +22,7 @@ public class Player extends Creature{
 		
 		getInput();
 		move();
-		rpg.getGameViewer().centerOnEntity(this);
+		handler.getGameViewer().centerOnEntity(this);
 		
 	}
 	
@@ -29,16 +30,16 @@ public class Player extends Creature{
 		xMove = 0;
 		yMove = 0;
 		
-		if(rpg.getInputManager().up) {
+		if(handler.getInputManager().up) {
 			yMove = -speed;
 		}
-		if(rpg.getInputManager().down) {
+		if(handler.getInputManager().down) {
 			yMove = speed;
 		}
-		if(rpg.getInputManager().left) {
+		if(handler.getInputManager().left) {
 			xMove = -speed;
 		}
-		if(rpg.getInputManager().right) {
+		if(handler.getInputManager().right) {
 			xMove = speed;
 		}
 	}
@@ -61,7 +62,7 @@ public class Player extends Creature{
 
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Assets.player, (int)(x - rpg.getGameViewer().getxOffset()), (int)(y - rpg.getGameViewer().getyOffset()), width, height, null);
+		g.drawImage(Assets.player, (int)(x - handler.getGameViewer().getxOffset()), (int)(y - handler.getGameViewer().getyOffset()), width, height, null);
 	}
 
 }

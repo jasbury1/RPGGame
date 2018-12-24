@@ -2,16 +2,17 @@ package dev.rpg.entities;
 
 import java.awt.Graphics;
 
+import dev.rpg.Handler;
 import dev.rpg.RPG;
 
 public abstract class Entity {
 	
-	protected RPG rpg;
+	protected Handler handler;
 	protected float x, y;
 	protected int width, height;
 	
-	public Entity(RPG rpg, float x, float y, int width, int height) {
-		this.rpg = rpg;
+	public Entity(Handler handler, float x, float y, int width, int height) {
+		this.handler = handler;
 		this.x = x;
 		this.y = y;
 		this.width = width;

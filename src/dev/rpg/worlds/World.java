@@ -2,21 +2,22 @@ package dev.rpg.worlds;
 
 import java.awt.Graphics;
 
+import dev.rpg.Handler;
 import dev.rpg.RPG;
 import dev.rpg.tiles.Tile;
 import dev.rpg.util.Utils;
 
 public class World {
 
-	private RPG rpg;
+	private Handler handler;
 	//measured in tiles
 	private int width, height;
 	private int spawnX, spawnY;
 	//tiles and positions
 	private int[][] tiles;
 	
-	public World(RPG rpg, String path) {
-		this.rpg = rpg;
+	public World(Handler handler, String path) {
+		this.handler = handler;
 		loadWorld(path);
 	}
 	
@@ -26,15 +27,15 @@ public class World {
 	
 	public void render(Graphics g) {
 		//Limit rendering to what the user can "see"
-		int xStart = (int)(Math.max(0, rpg.getGameViewer().getxOffset() / Tile.TILE_WIDTH));
-		int xEnd = (int)(Math.min(width, (rpg.getGameViewer().getxOffset() + rpg.getWidth()) / Tile.TILE_WIDTH + 1));
-		int yStart = (int)(Math.max(0, rpg.getGameViewer().getyOffset() / Tile.TILE_HEIGHT));
-		int yEnd = (int)(Math.min(height, (rpg.getGameViewer().getyOffset() + rpg.getHeight()) / Tile.TILE_HEIGHT + 1));
-		
+		int xStart = (int)(Math.max(0, handler.getGameViewer().getxOffset() / Tile.TILE_WIDTH));
+		int xEnd = (int)(Math.min(width, (handler.getGameViewer().getxOffset() + handler.getWidth()) / Tile.TILE_WIDTH + 1));
+		int yStart = (int)(Math.max(0, handler.getGameViewer().getyOffset() / Tile.TILE_HEIGHT));
+		int yEnd = (int)(Math.min(height, (handler.getGameViewer().getyOffset() + handler.getHeight()) / Tile.TILE_HEIGHT + 1));
+		//loop to render view
 		for(int y = yStart; y < yEnd; ++y) {
 			for(int x = xStart; x < xEnd; ++x) {
-				getTile(x, y).render(g,  (int)(x * Tile.TILE_WIDTH - rpg.getGameViewer().getxOffset()),  
-						(int)(y * Tile.TILE_HEIGHT - rpg.getGameViewer().getyOffset()));
+				getTile(x, y).render(g,  (int)(x * Tile.TILE_WIDTH - handler.getGameViewer().getxOffset()),  
+						(int)(y * Tile.TILE_HEIGHT - handler.getGameViewer().getyOffset()));
 			}
 		}
 	}

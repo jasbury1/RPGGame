@@ -2,6 +2,7 @@ package dev.rpg.states;
 
 import java.awt.Graphics;
 
+import dev.rpg.Handler;
 import dev.rpg.RPG;
 
 public abstract class State {
@@ -18,10 +19,10 @@ public abstract class State {
 		
 	//CLASS
 	
-	protected RPG rpg;
+	protected Handler handler;
 	
-	public State (RPG rpg) {
-		this.rpg = rpg;
+	public State (Handler handler) {
+		this.handler = handler;
 	}
 	
 	
