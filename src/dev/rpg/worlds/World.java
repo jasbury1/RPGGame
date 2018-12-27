@@ -4,6 +4,9 @@ import java.awt.Graphics;
 
 import dev.rpg.Handler;
 import dev.rpg.RPG;
+import dev.rpg.entities.EntityManager;
+import dev.rpg.entities.creatures.Player;
+import dev.rpg.entities.statics.Tree;
 import dev.rpg.tiles.Tile;
 import dev.rpg.util.Utils;
 
@@ -15,10 +18,21 @@ public class World {
 	private int spawnX, spawnY;
 	//tiles and positions
 	private int[][] tiles;
+	//Entities
+	private EntityManager entityManager;
 	
 	public World(Handler handler, String path) {
 		this.handler = handler;
+		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		entityManager.addEntity(new Tree(handler, 9*64, 7 * 64));
+		
 		loadWorld(path);
+		entityManager.getPlayer().setX(spawnX);
+		entityManager.getPlayer().setY(spawnY);
+	}
+	
+	public void update() {
+		entityManager.update();
 	}
 	
 	public void render(Graphics g) {
@@ -34,6 +48,8 @@ public class World {
 						(int)(y * Tile.TILE_HEIGHT - handler.getGameViewer().getyOffset()));
 			}
 		}
+		//Entities
+		entityManager.render(g);
 	}
 	
 
@@ -82,10 +98,6 @@ public class World {
 
 	public void setSpawnY(int spawnY) {
 		this.spawnY = spawnY;
-	}
-
-	public void update() {
-		
 	}
 	
 	public int getWidth() {

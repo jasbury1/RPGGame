@@ -6,7 +6,7 @@ public class Assets {
 	//load everything in the game
 	private static final int width = 32, height = 32;
 	
-	public static BufferedImage sand, grass, player, water;
+	public static BufferedImage sand, grass, player, water, tree;
 	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/testSpriteSheet.png"));
@@ -15,5 +15,6 @@ public class Assets {
 		grass = sheet.crop(width, 0, width, height);
 		player = sheet.crop(width * 2, 0, width, height);
 		water = sheet.crop(width * 3, 0, width, height);
+		tree = sheet.crop(width * 4, 17, width, 47);
 	}
 }
