@@ -18,7 +18,7 @@ public class GameState extends State {
 		super(handler);
 		world = new World(handler, "res/worlds/world1.txt");
 		handler.setWorld(world);
-		player = new Player(handler, 100, 100);
+		player = new Player(handler, handler.getWorld().getSpawnX() * 64, handler.getWorld().getSpawnY() * 64);
 
 	}
 	

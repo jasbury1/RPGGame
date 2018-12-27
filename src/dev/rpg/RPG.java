@@ -56,9 +56,8 @@ public class RPG implements Runnable{
 		
 		Assets.init();
 		
-		gameViewer = new Viewer(this, 0, 0);
 		handler = new Handler(this);
-		
+		gameViewer = new Viewer(handler, 0, 0);
 		
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);

@@ -3,6 +3,7 @@ package dev.rpg.entities.creatures;
 import dev.rpg.Handler;
 import dev.rpg.RPG;
 import dev.rpg.entities.Entity;
+import dev.rpg.tiles.Tile;
 
 public abstract class Creature extends Entity{
 	
@@ -24,8 +25,64 @@ public abstract class Creature extends Entity{
 	}
 	
 	public void move() {
-		x += xMove;
-		y += yMove;
+		moveX();
+		moveY();
+	}
+	
+	public void moveX() {
+		//moving right
+		if(xMove > 0) {
+			int tempX = (int)(x + xMove + bounds.x + bounds.width) / Tile.TILE_WIDTH;
+			
+			if(!collisionWithTile(tempX, (int)(y + bounds.y) / Tile.TILE_HEIGHT)&&
+					!collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+				x += xMove;
+			}else {
+				x = tempX * Tile.TILE_WIDTH - bounds.x - bounds.width - 1;
+			}
+		}
+		//moving left
+		else if(xMove < 0) {
+			int tempX = (int)(x + xMove + bounds.x) / Tile.TILE_WIDTH;
+			
+			if(!collisionWithTile(tempX, (int)(y + bounds.y) / Tile.TILE_HEIGHT)&&
+					!collisionWithTile(tempX, (int) (y + bounds.y + bounds.height) / Tile.TILE_HEIGHT)) {
+				x += xMove;
+			}
+			else {
+				x = tempX * Tile.TILE_WIDTH + Tile.TILE_WIDTH - bounds.x;
+			}
+		}
+	}
+	
+	public void moveY() {
+		if(yMove < 0) {
+			int tempY = (int)(y + yMove + bounds.y)/ Tile.TILE_HEIGHT;
+			
+			if(!collisionWithTile((int)(x + bounds.x)/ Tile.TILE_WIDTH, tempY) &&
+					!collisionWithTile((int)(x + bounds.x + bounds.width)/ Tile.TILE_WIDTH, tempY )){
+				y += yMove;
+			}
+			else {
+				y = tempY * Tile.TILE_HEIGHT + Tile.TILE_HEIGHT - bounds.y;
+			}
+		}
+		else if(yMove > 0) {
+			int tempY = (int)(y + yMove + bounds.y + bounds.height)/ Tile.TILE_HEIGHT;
+			
+			if(!collisionWithTile((int)(x + bounds.x)/ Tile.TILE_WIDTH, tempY) &&
+					!collisionWithTile((int)(x + bounds.x + bounds.width)/ Tile.TILE_WIDTH, tempY )){
+				y += yMove;
+			}
+			else {
+				y = tempY * Tile.TILE_HEIGHT - bounds.y - bounds.height - 1;
+			}
+			
+		}
+	}
+	
+	protected boolean collisionWithTile(int x, int y) {
+		return handler.getWorld().getTile(x, y).isSolid();
 	}
 	
 	//GETTERS AND SETTERS

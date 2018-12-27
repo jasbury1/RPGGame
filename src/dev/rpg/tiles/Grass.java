@@ -12,7 +12,7 @@ public class Grass extends Tile {
 	
 	@Override
 	public boolean isSolid() {
-		return true;
+		return false;
 	}
 
 }

@@ -1,5 +1,6 @@
 package dev.rpg.entities.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import dev.rpg.Handler;
@@ -12,6 +13,11 @@ public class Player extends Creature{
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+		
+		bounds.x = 16;
+		bounds.y = 32;
+		bounds.width = 32;
+		bounds.height = 32;
 	}
 
 	@Override
@@ -43,7 +49,20 @@ public class Player extends Creature{
 			xMove = speed;
 		}
 	}
+
+	@Override
+	public void render(Graphics g) {
+		g.drawImage(Assets.player, (int)(x - handler.getGameViewer().getxOffset()), (int)(y - handler.getGameViewer().getyOffset()), width, height, null);
 	
+		/* Uncomment to see hitbox
+		g.setColor(Color.red);
+		g.fillRect((int)(x + bounds.x - handler.getGameViewer().getxOffset()), 
+				(int)(y + bounds.y - handler.getGameViewer().getyOffset()),
+				bounds.width, bounds.height);
+		*/
+	}
+	
+	//Manual movement functions
 	public void moveUp() {
 		y -= MOVE_DELTA;
 	}
@@ -58,11 +77,6 @@ public class Player extends Creature{
 	
 	public void moveRight() {
 		x += MOVE_DELTA;
-	}
-
-	@Override
-	public void render(Graphics g) {
-		g.drawImage(Assets.player, (int)(x - handler.getGameViewer().getxOffset()), (int)(y - handler.getGameViewer().getyOffset()), width, height, null);
 	}
 
 }

@@ -1,6 +1,6 @@
 /*
  * A way of passing around both the rpg object and the world
- * Uselful for collision detection and general class organization
+ * Useful for collision detection and general class organization
  */
 
 package dev.rpg;

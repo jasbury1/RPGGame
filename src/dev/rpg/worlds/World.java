@@ -21,10 +21,6 @@ public class World {
 		loadWorld(path);
 	}
 	
-	public void update() {
-		
-	}
-	
 	public void render(Graphics g) {
 		//Limit rendering to what the user can "see"
 		int xStart = (int)(Math.max(0, handler.getGameViewer().getxOffset() / Tile.TILE_WIDTH));
@@ -40,7 +36,13 @@ public class World {
 		}
 	}
 	
+
 	public Tile getTile(int x, int y) {
+		if(x < 0 || y < 0 || x >= width || y >= height) {
+			//Emergency default to prevent errors
+			return Tile.waterTile;
+		}
+		
 		Tile t = Tile.tiles[tiles[x][y]];
 		if(t == null) {
 			return Tile.waterTile;
@@ -64,5 +66,43 @@ public class World {
 		}
 		
 	}
+	
+	//GETTERS AND SETTERS
+	public int getSpawnX() {
+		return spawnX;
+	}
+
+	public void setSpawnX(int spawnX) {
+		this.spawnX = spawnX;
+	}
+
+	public int getSpawnY() {
+		return spawnY;
+	}
+
+	public void setSpawnY(int spawnY) {
+		this.spawnY = spawnY;
+	}
+
+	public void update() {
+		
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+	
 	
 }
