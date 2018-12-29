@@ -19,7 +19,6 @@ public class GameState extends State {
 		super(handler);
 		world = new World(handler, "res/worlds/world1.txt");
 		handler.setWorld(world);
-		//player = new Player(handler, handler.getWorld().getSpawnX() * 64, handler.getWorld().getSpawnY() * 64);
 		
 	}
 	
@@ -27,13 +26,11 @@ public class GameState extends State {
 	public void update() {
 		// TODO Auto-generated method stub
 		world.update();
-		//player.update();
 	}
 
 	@Override
 	public void render(Graphics g) {
 		world.render(g);
-//		player.render(g);
 	}
 
 

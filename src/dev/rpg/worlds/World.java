@@ -115,6 +115,10 @@ public class World {
 	public void setHeight(int height) {
 		this.height = height;
 	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
 	
 	
 }
