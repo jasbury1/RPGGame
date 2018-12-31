@@ -59,7 +59,8 @@ public class Player extends Creature{
 		g.fillRect((int)(x + bounds.x - handler.getGameViewer().getxOffset()), 
 				(int)(y + bounds.y - handler.getGameViewer().getyOffset()),
 				bounds.width, bounds.height);
-		*/
+				*/
+		
 	}
 	
 	//Manual movement functions

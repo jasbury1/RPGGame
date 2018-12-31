@@ -1,0 +1,68 @@
+TO RUN:
+------
+load up the New RPG folder in Eclipse. Click on the folder name.
+Go to Project->Properties
+Select Project Build Path from the left sidebar.
+Select Libraries at the top.
+Click "add Class Folder" on the right, select the "res" folder. Click apply.
+Now the game should have access to all resource paths for image loading.
+Compile and run with the green arrow
+
+
+GAME LOOP:
+---------
+The Main is located inside the Launcher class.
+This does nothing except create a new game and start it.
+
+The "Game" is the RPG class. This class does all of the heavy lifting for the program. It initializes everything necessary at the start (Display, JFrame, etc.) and creates all the necessary states.
+The "run" method is the main game loop! This loop is set to a timer so that the runtime rendering is consistent for different machines.
+Every time the game loop loops, the game is updated and then rendered.
+The main idea of the game is that everything in the game is in a constant loop of being updated then rendered.
+Updating polls for any changes that are taking place.
+Rendering affects the appearances/locations of images that are being drawn to the display.
+The screen is cleared between each render call.
+
+The game is divided up into states. The current three are Menu, Settings, and Game.
+Depending on which state is the "active" one, the game loop will call that state to update and render within the update() and render() methods.
+
+GAMESTATE / WORLD:
+-----------------
+
+The gamestate creates a new world using a world file. This file just tells the game which tiles to place where
+The current implementation divides the world generation file into strings by separating using white space. These strings are loaded into an array called "Tokens"
+The tokens are parsed into integers and converted into tiles
+These tiles are loaded into a 2D array called "tiles"
+the render() Method will loop to display all of the tiles within view.
+It will then render all entities.
+
+The Tile class designates a width and height of how many pixels tall/wide it should render each tile. 
+Note that this is NOT the same as the resolution of individual tiles! In the starting code each tile is 32*32 pixels, but the tile width and height renders them as 64x64 so that they aren't too small
+The Tile class also contains an array called "tiles", but this array just stores all the different types of tiles by a tile id
+
+VIEWER:
+------
+
+The viewer just follows around an entity. In this case, the player.
+It just creates an appropriate offset to render everything at relative to the players location. This offset will be passed to any other objects or entities that need rendering
+
+GRAPHICS:
+--------
+
+The SpriteSheet class loads a sprite sheet as a buffered image and contains a crop method that can return any requested section of that sprite sheet.
+ImageLoader just takes a path and returns a buffered image.
+Assets hard codes the name of individual assets and links it to a corresponding cropped section of the spritesheet.
+These assets can then be used for tiles
+
+ENTITIES:
+--------
+
+Entities are either Static (not moving), or creatures (moving)
+
+KEYBOARD AND OTHER INPUT:
+------------------------
+An input manager decides how to handle the input. I created classes that could be called whether you want to use a KeyBinder or KeyManager.
+KeyBinder might be better for the future, but is not yet fully implemented.
+The KeyManager checks for key presses and sends them to the input manager. The input manager stores presses in a boolean array. 
+Pressed = true, released = false
+For easy access to movement, "up", "down", "left", and "right" booleans also hold arrow key values.
+The player moves its x and y location based on whether one of these values is true
