@@ -1,6 +1,7 @@
 package dev.rpg.worlds;
 
 import java.awt.Graphics;
+import java.time.LocalTime;
 
 import dev.rpg.Handler;
 import dev.rpg.RPG;
@@ -9,6 +10,7 @@ import dev.rpg.entities.creatures.Player;
 import dev.rpg.entities.statics.Tree;
 import dev.rpg.tiles.Tile;
 import dev.rpg.util.Utils;
+import dev.rpg.hud.PlayerStatus;
 
 public class World {
 
@@ -20,11 +22,15 @@ public class World {
 	private int[][] tiles;
 	//Entities
 	private EntityManager entityManager;
+	//HUD
+	private PlayerStatus playerStatus;
 	
 	public World(Handler handler, String path) {
 		this.handler = handler;
-		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		Player player = new Player(handler, 100, 100);
+		entityManager = new EntityManager(handler, player);
 		entityManager.addEntity(new Tree(handler, 9*64, 7 * 64));
+		playerStatus = new PlayerStatus(player);
 		
 		loadWorld(path);
 		entityManager.getPlayer().setX(spawnX);
@@ -33,6 +39,7 @@ public class World {
 	
 	public void update() {
 		entityManager.update();
+		playerStatus.update();
 	}
 	
 	public void render(Graphics g) {
@@ -50,6 +57,8 @@ public class World {
 		}
 		//Entities
 		entityManager.render(g);
+		//HUD
+		playerStatus.render(g);
 	}
 	
 

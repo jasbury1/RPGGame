@@ -1,0 +1,23 @@
+package dev.rpg.entities.creatures.player_status_threads;
+import dev.rpg.entities.creatures.Player;
+
+public class HungerLoss implements Runnable {
+
+    private Player player;
+
+    public HungerLoss(Player player) {
+        this.player = player;
+    }
+
+    public void run() {
+        try {
+            while (player.getPlayerAlive()) {
+                Thread.sleep(3000);
+                player.loseHunger(1);
+            }
+        } catch (InterruptedException e) {
+            System.out.println("'" + e + "' caught in HungerLoss thread. HungerLoss thread will discontinue now.");
+        }
+    }
+
+}
