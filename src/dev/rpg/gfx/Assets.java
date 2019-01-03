@@ -7,7 +7,6 @@ public class Assets {
 	private static final int width = 32, height = 32;
 	
 	public static BufferedImage sand, grass, player, water, tree;
-	public static BufferedImage hud, healthLeft, healthMid, healthRight;
 	
 	public static void init() {
 		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/testSpriteSheet.png"));
