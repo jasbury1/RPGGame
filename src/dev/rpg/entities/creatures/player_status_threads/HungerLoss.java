@@ -4,6 +4,7 @@ import dev.rpg.entities.creatures.Player;
 public class HungerLoss implements Runnable {
 
     private Player player;
+    private static final int WAIT_TIME = 3000;
 
     public HungerLoss(Player player) {
         this.player = player;
@@ -12,7 +13,7 @@ public class HungerLoss implements Runnable {
     public void run() {
         try {
             while (player.getPlayerAlive()) {
-                Thread.sleep(3000);
+                Thread.sleep(WAIT_TIME);
                 player.loseHunger(1);
             }
         } catch (InterruptedException e) {

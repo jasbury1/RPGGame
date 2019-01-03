@@ -4,6 +4,7 @@ import dev.rpg.entities.creatures.Player;
 public class HeatAdjust implements Runnable {
 
     private Player player;
+    private static final int WAIT_TIME = 3000;
 
     public HeatAdjust(Player player) {
         this.player = player;
@@ -13,7 +14,7 @@ public class HeatAdjust implements Runnable {
         /* TODO need to add time to the world and calculate a temperature based on what time it is
         try {
             while (player.getPlayerAlive()) {
-                Thread.sleep(3000);
+                Thread.sleep(WAIT_TIME);
                 player.adjustHeat();
             }
         } catch (InterruptedException e) {
