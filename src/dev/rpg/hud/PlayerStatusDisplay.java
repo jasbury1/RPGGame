@@ -6,6 +6,7 @@ import dev.rpg.entities.creatures.Player;
 public class PlayerStatusDisplay {
 
     private Player player;
+
     private Color backgroundColor = new Color(225, 198, 153);
     private Color borderColor = new Color(140, 116, 74);
     private Color emptyBarColor = new Color(196, 178, 147);
@@ -14,6 +15,7 @@ public class PlayerStatusDisplay {
     private Color playerWarmColor = new Color(32, 247, 114);
     private Color playerColdColor = new Color(19, 174, 216);
     private Color playerFreezingColor = new Color(23, 35, 168);
+
     private int xCoordinate = 10;
     private int yCoordinate = 10;
     private int width = 200;
@@ -33,7 +35,7 @@ public class PlayerStatusDisplay {
     public void render(Graphics g) {
         //Background
         g.setColor(borderColor);
-        g.fillRect(xCoordinate-3, yCoordinate-3, width+6, height+6);
+        g.fillRect(xCoordinate - 3, yCoordinate - 3, width + 6, height + 6);
         g.setColor(backgroundColor);
         g.fillRect(xCoordinate, yCoordinate, width, height);
 
