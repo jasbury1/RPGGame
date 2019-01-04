@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import dev.rpg.Handler;
 import dev.rpg.entities.creatures.player_status_threads.HungerLoss;
 import dev.rpg.gfx.Assets;
+import dev.rpg.hud.PlayerStatusDisplay;
 import dev.rpg.worlds.World;
 
 public class Player extends Creature{
@@ -21,6 +22,8 @@ public class Player extends Creature{
 	private ReentrantLock lock = new ReentrantLock();
 	private Condition condition = lock.newCondition();
 	private boolean playerAlive = true;
+	//HUD
+	private PlayerStatusDisplay playerStatusDisplay;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
@@ -34,6 +37,8 @@ public class Player extends Creature{
 		hunger = PLAYER_MAX_HUNGER;
 		heat = PLAYER_MAX_HEAT;
 		armor = 1;
+
+		playerStatusDisplay = new PlayerStatusDisplay(this);
 
 		//Threads to change hunger and heat
 		HungerLoss hungerLoss = new HungerLoss(this);
@@ -79,14 +84,14 @@ public class Player extends Creature{
 	@Override
 	public void render(Graphics g) {
 		g.drawImage(Assets.player, (int)(x - handler.getGameViewer().getxOffset()), (int)(y - handler.getGameViewer().getyOffset()), width, height, null);
-	
+
 		/* Uncomment to see hitbox
 		g.setColor(Color.red);
 		g.fillRect((int)(x + bounds.x - handler.getGameViewer().getxOffset()), 
 				(int)(y + bounds.y - handler.getGameViewer().getyOffset()),
 				bounds.width, bounds.height);
 				*/
-		
+		playerStatusDisplay.render(g);
 	}
 
 	public void takeDamage(int damageAmount) {

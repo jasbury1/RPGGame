@@ -10,7 +10,6 @@ import dev.rpg.entities.creatures.Player;
 import dev.rpg.entities.statics.Tree;
 import dev.rpg.tiles.Tile;
 import dev.rpg.util.Utils;
-import dev.rpg.hud.PlayerStatusDisplay;
 
 public class World {
 
@@ -22,15 +21,12 @@ public class World {
 	private int[][] tiles;
 	//Entities
 	private EntityManager entityManager;
-	//HUD
-	private PlayerStatusDisplay playerStatusDisplay;
 	
 	public World(Handler handler, String path) {
 		this.handler = handler;
 		Player player = new Player(handler, 100, 100);
 		entityManager = new EntityManager(handler, player);
 		entityManager.addEntity(new Tree(handler, 9*64, 7 * 64));
-		playerStatusDisplay = new PlayerStatusDisplay(player);
 		
 		loadWorld(path);
 		entityManager.getPlayer().setX(spawnX);
@@ -39,7 +35,6 @@ public class World {
 	
 	public void update() {
 		entityManager.update();
-		playerStatusDisplay.update();
 	}
 	
 	public void render(Graphics g) {
@@ -57,8 +52,6 @@ public class World {
 		}
 		//Entities
 		entityManager.render(g);
-		//HUD
-		playerStatusDisplay.render(g);
 	}
 	
 
